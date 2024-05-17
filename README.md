@@ -29,6 +29,8 @@
 
 ------
 
+[hello-world](https://github.com/MaratAlaev/kube/blob/kube02/01_echoserver_hello_world.yaml)
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/b4d5f4ae-3e67-4b7f-bed2-c1b8441a9b23)
 
 
@@ -40,6 +42,7 @@
 4. Подключиться локально к Service с помощью `kubectl port-forward` и вывести значение (curl или в браузере).
 
 ------
+[netology-web](https://github.com/MaratAlaev/kube/blob/kube02/02_echoserver_service.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/e3823d26-70bd-461c-a6af-dca92e1cba95)
 
