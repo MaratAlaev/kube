@@ -46,6 +46,9 @@
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/e3823d26-70bd-461c-a6af-dca92e1cba95)
 
+![image](https://github.com/MaratAlaev/kube/assets/46092593/09a6bac0-3cb0-4074-afd8-fb0a3ff2ec1a)
+
+
 
 ### Правила приёма работы
 
