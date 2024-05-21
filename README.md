@@ -31,6 +31,7 @@
 5. Создать отдельный Pod с приложением multitool и убедиться с помощью `curl`, что из пода есть доступ до приложений из п.1.
 
 ------
+[конфиг к первому заданию](https://github.com/MaratAlaev/kube/blob/kube03/01_Deploy_nginx_multitool.yaml)
 
 До увеличения реплик:
 
@@ -54,6 +55,8 @@
 4. Продемонстрировать состояние пода до и после запуска сервиса.
 
 ------
+
+[конфиг ко второму заданию](https://github.com/MaratAlaev/kube/blob/kube03/02_Deploy_nginx_init.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/b2543d39-6aab-4aab-85f9-bfbe411027c9)
 
