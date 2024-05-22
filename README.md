@@ -32,6 +32,8 @@
 
 ------
 
+[манифест относится к двум заданиям](https://github.com/MaratAlaev/kube/blob/kube04/03_Deploy_3nginx.yaml)
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/fd4e46e6-3c35-441f-990d-395d78e80147)
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/3cad262c-1849-4b01-b8e9-c67fc2fd6c7f)
 
@@ -44,6 +46,7 @@
 3. Предоставить манифест и Service в решении, а также скриншоты или вывод команды п.2.
 
 ------
+[манифест относится к двум заданиям](https://github.com/MaratAlaev/kube/blob/kube04/03_Deploy_3nginx.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/d4ed6de1-e0fa-4e03-be36-6ef3567f2758)
 
