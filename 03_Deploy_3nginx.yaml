@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-multitool
+  labels:
+    app: ngmult
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ngmult
+  template:
+    metadata:
+      labels:
+        app: ngmult
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19.2
+        ports:
+        - containerPort: 80
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            value: "8080"
+        ports:
+          - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ngmult-svc
+spec:
+  ports: 
+    - name: nginx
+      port: 9001
+      targetPort: 80
+    - name: multitool
+      port: 9002
+      targetPort: 8080
+  selector:
+    app: ngmult
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport
+spec:
+  ports: 
+    - name: nginx
+      port: 80
+      nodePort: 30080
+  selector:
+    app: ngmult
+  type: NodePort
