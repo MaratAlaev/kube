@@ -33,9 +33,8 @@
 
 ------
 
-![image](https://github.com/MaratAlaev/kube/assets/46092593/5062dcec-dce8-40f5-9eff-a774edbb81ec)
+![image](https://github.com/MaratAlaev/kube/assets/46092593/bc94dfaa-8dff-4206-b1b8-b95050e7936e)
 
-![image](https://github.com/MaratAlaev/kube/assets/46092593/fe08c776-e9f1-427b-b9ff-0f2f6d8631ba)
 
 
 
@@ -47,6 +46,12 @@
 4. Предоставить манифесты и скриншоты или вывод команды п.2.
 
 ------
+
+![image](https://github.com/MaratAlaev/kube/assets/46092593/6fe12023-cd5e-4ff1-968a-2b34df760d0d)
+
+![image](https://github.com/MaratAlaev/kube/assets/46092593/970c30e5-a2d2-4e28-a10f-97d2aaf25793)
+
+
 
 ### Правила приема работы
 
