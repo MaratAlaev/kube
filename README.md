@@ -33,6 +33,8 @@
 
 ------
 
+[Манифест к обоим заданиям](https://github.com/MaratAlaev/kube/blob/kube05/04_Deploy_frontback.yaml)
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/bc94dfaa-8dff-4206-b1b8-b95050e7936e)
 
 
@@ -46,6 +48,8 @@
 4. Предоставить манифесты и скриншоты или вывод команды п.2.
 
 ------
+
+[Манифест к обоим заданиям](https://github.com/MaratAlaev/kube/blob/kube05/04_Deploy_frontback.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/6fe12023-cd5e-4ff1-968a-2b34df760d0d)
 
