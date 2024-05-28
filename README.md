@@ -36,6 +36,8 @@
 
 ------
 
+[манифест задания 1](https://github.com/MaratAlaev/kube/blob/kube6/05_Deploy_volume.yaml)
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/8425b7e1-cb84-47ae-bf12-f3d8698c5c4a)
 
 
@@ -51,6 +53,8 @@
 4. Предоставить манифесты Deployment, а также скриншоты или вывод команды из п. 2.
 
 ------
+
+[манифест задания 2](https://github.com/MaratAlaev/kube/blob/kube6/01_DeamonSet_multitool.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/57a8a98d-7288-4381-b719-f312e809d025)
 
