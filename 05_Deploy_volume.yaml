@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volume-test
+  labels:
+    app: volum
+spec:
+  selector:
+    matchLabels:
+      app: volum
+  template:
+    metadata:
+      labels:
+        app: volum
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+        - name: vol
+          mountPath: /busyboxLog
+      - name: busybox
+        image: busybox:1.36
+        command: ['sh', '-c', 'while true; do echo test volume >> /output/test; sleep 5; done']
+        volumeMounts:
+        - name: vol
+          mountPath: /output
+      volumes:
+        - name: vol
+          hostPath:
+            path: /var/kubeVolume
