@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multitool-busybox
+  labels:
+    app: mult-box
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mult-box
+  template:
+    metadata:
+      labels:
+        app: mult-box
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+          - mountPath: /multitool-storage
+            name: local-storage
+      - name: busybox
+        image: busybox:1.36
+        command: ['sh', '-c', 'while true; do echo test volume >> /busybox-storage/test; sleep 5; done']
+        volumeMounts:
+          - mountPath: /busybox-storage
+            name: local-storage
+      volumes:
+        - name: local-storage
+          persistentVolumeClaim:
+            claimName: local-pvc
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+  labels:
+    type: local-pv
+spec:
+  storageClassName: local-storage
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/k8s-local-storage"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512Mi
