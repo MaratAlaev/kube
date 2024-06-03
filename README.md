@@ -38,6 +38,8 @@
 
 ------
 
+[манифест 1 задания](https://github.com/MaratAlaev/kube/blob/kube7/01_Persisten_volume.yaml)
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/2d9053b7-4a86-4c5e-a7c2-cfa43477c030)
 
 После удаления Deployment и PVC
@@ -62,6 +64,8 @@ PV сменил статус с Bound на Released, что означает, ч
 4. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
 
 ------
+
+[манифест 2 задания](https://github.com/MaratAlaev/kube/blob/kube7/02_Persisten_volume_nfs.yaml)
 
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/92151f36-6a29-487d-8a69-f4e86c38aecd)
 
