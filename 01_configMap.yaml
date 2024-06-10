@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-multitool
+  labels:
+    app: ngmult
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngmult
+  template:
+    metadata:
+      labels:
+        app: ngmult
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name:  configmap-volume
+            mountPath: /usr/share/nginx/html/
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: config-map-multitool
+              key: porttool
+      volumes:
+      - name: configmap-volume
+        configMap:
+          name: config-map-nginx
+            
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-multitool
+data:
+  porttool: "31080"
+
+
+--- 
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-nginx
+data:
+  index.html: |
+    <html>
+    <head>
+    <title>configmap</title>
+    </head>
+    <body>
+    <H1>my-configmap</H1>
+    </body>
+    </html>
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ngmult-svc
+spec:
+  ports: 
+    - name: nginx
+      port: 10080
+      targetPort: 80
+  selector:
+    app: ngmult

@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: ngmult
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngmult
+  template:
+    metadata:
+      labels:
+        app: ngmult
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.19.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - name:  configmap-volume
+            mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: configmap-volume
+        configMap:
+          name: config-map-nginx
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-frontend
+spec:
+  ports: 
+    - name: front
+      port: 10080
+      targetPort: 80
+  selector:
+    app: ngmult
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: microk8s.test.ru
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-frontend
+            port:
+              name: front
+  tls:
+  - hosts:
+    - microk8s.test.ru
+    secretName: secret-tls
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-nginx
+data:
+  index.html: |
+    <html>
+    <head>
+    <title>configmap</title>
+    </head>
+    <body>
+    <H1>my-configmap</H1>
+    </body>
+    </html>
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-tls
+data:
+   tls.crt: |
+    LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURUVENDQWpXZ0F3SUJBZ0lVZWNncGhBMVg1
+    NU13K2FYWmUra1FDdzdHeTFnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd05qRVpNQmNHQTFVRUF3d1Fi
+    V2xqY205ck9ITXVkR1Z6ZEM1eWRURVpNQmNHQTFVRUNnd1FiV2xqY205cgpPSE11ZEdWemRDNXlk
+    VEFlRncweU5EQTJNVEF4TmpFNE1qVmFGdzB5TlRBMk1UQXhOakU0TWpWYU1EWXhHVEFYCkJnTlZC
+    QU1NRUcxcFkzSnZhemh6TG5SbGMzUXVjblV4R1RBWEJnTlZCQW9NRUcxcFkzSnZhemh6TG5SbGMz
+    UXUKY25Vd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURGVUJzQmxq
+    N3VTMEwvOUEzUQoxVGVSY01ab1pXak4yN05ISHRUbWIwQ0IrckdvOE9HMWdLV3MvWmtwc0VmOGhE
+    L2ppOWZJckJMNjRqNC9XajA2ClVrTjdSekx3a2NTb3hGQVNMVnRHVW0weW9QQjM3WVJ1TFcrVWxP
+    Q3FOWW5oeURPVmZYcmpmRWFyYkNmWjd0eXEKVWoyRGtsdnBQZGppRzJKZ29WNlNuT0dObTFEeTVm
+    QkViYVpiQUVaMWsrd1hUU2JNRnpiK2Nxb0p2bDlwdGR5bgp2MUovR2RWOVBtMU1aZkh4WjRFNXZK
+    cWY5MzN1OFJvV2NLMWVKY3JoNkl4K3Z6UkJIMkwzeGdrbjZwcFZ4QmpBCkc2TmUwNmZ0WExzTHVG
+    UHF3RG1IdUZwNGZKbENFMktqdWdNc1Z6ektvRFlKKy9JR3cxNnBhVDRxa05RT251S3oKSENhdEFn
+    TUJBQUdqVXpCUk1CMEdBMVVkRGdRV0JCVEhsMkcxUXNWYjNIcUp2WTFUc29tQmdyMXloakFmQmdO
+    VgpIU01FR0RBV2dCVEhsMkcxUXNWYjNIcUp2WTFUc29tQmdyMXloakFQQmdOVkhSTUJBZjhFQlRB
+    REFRSC9NQTBHCkNTcUdTSWIzRFFFQkN3VUFBNElCQVFCMGZpc0ljZ3pQRFFGUW01VzRySDlwUHla
+    VlgvdHZScG1iLzJ3elduNVUKcm1pZWdTTldZSUMvOVA2MHZlckRvZHZ6MDZuUjlzUXRkS3luWlJl
+    OEZnWjRnN3duQ1VqY0d3b1BJaW80a016bAorSHJIbFFlaGoxVlpuZGkxR0RzUUFwSDZZWG84cXA1
+    eGhHWjNLTmZRQzF2akk1MU1ISmY5czczdjF1WFFaMUFWCm9iNGN2YWIwSUlCempRVDlkajJNMmVK
+    STJMTTh1VUZ2RUNoL0FQbFNON2hlMnIxU09ORHQ4akdqUXp1c0V2cHcKSHhzaGN2U2tvd3BjcHNw
+    SHFIZUIrWGI2bWVGaTgzdm9LUTlwTG5Ub1FzNnRaNWVJQmJFOWcydTg2TGtrZ29ydApobzVmU2lC
+    emlNZitXbm1WQk9FeldHNWNvOEtkYlBrLzgzcWFnK0dxc09IMAotLS0tLUVORCBDRVJUSUZJQ0FU
+    RS0tLS0tCg==
+   tls.key: |
+    LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZB
+    QVNDQktjd2dnU2pBZ0VBQW9JQkFRREZVQnNCbGo3dVMwTC8KOUEzUTFUZVJjTVpvWldqTjI3TkhI
+    dFRtYjBDQityR284T0cxZ0tXcy9aa3BzRWY4aEQvamk5ZklyQkw2NGo0LwpXajA2VWtON1J6THdr
+    Y1NveEZBU0xWdEdVbTB5b1BCMzdZUnVMVytVbE9DcU5Zbmh5RE9WZlhyamZFYXJiQ2ZaCjd0eXFV
+    ajJEa2x2cFBkamlHMkpnb1Y2U25PR05tMUR5NWZCRWJhWmJBRVoxayt3WFRTYk1GemIrY3FvSnZs
+    OXAKdGR5bnYxSi9HZFY5UG0xTVpmSHhaNEU1dkpxZjkzM3U4Um9XY0sxZUpjcmg2SXgrdnpSQkgy
+    TDN4Z2tuNnBwVgp4QmpBRzZOZTA2ZnRYTHNMdUZQcXdEbUh1RnA0ZkpsQ0UyS2p1Z01zVnp6S29E
+    WUorL0lHdzE2cGFUNHFrTlFPCm51S3pIQ2F0QWdNQkFBRUNnZ0VCQUpQd3RlOEFxZnFkYjRUZGhp
+    WllWNnV5OVBCOWFKRkE4ekNXQzJjamJ5aUYKd1FNOGFOOWZyOWorNUFILzdGbUhCeWdqU0Exc0Iy
+    Y1lqemVNLzI5bEVyZXg4SjJ6amRKRUx3MFIrT2ZIRVp6dQpVcDU0OWR4dU1NVWt3emFib2VBcDda
+    TmVXKytJMUt2ZkVob3pJRHlNSVJjdmU3NXI0dHZWVUhQSFNsTi9VUmFNClZNUndsN2ZVM3o4Q1Ew
+    dFY2MGxGNUJjRDNiUXYrSTBxQ0FZbVp2TDZ4UUkzQlQ1L3NEdkVrazU3TExteWd4bmoKVndqNmdi
+    ZjdaeGJwS1pabUZPa1VtSkpRZlhXamgzbThWaUo1RzBhWFRkVnorZjdrT05MYmUwKzV3RVorSy9y
+    RQo1eU1nTVVKbGhYbG93blY2cklVRnNTVlBuMmRGazhrTmlaM2FZNEM5Ny9rQ2dZRUErYnp6dmxj
+    ZlB2NWxQZ1N6ClpPYWdobVNNYkJKSHdDMnNrWm0wWFQybWY3R1BEaEVnVXNYMGdaeElZRHNwRWVY
+    VkJDaERxMHMyNzU3Zm9WTTYKUkdDVnJycTA1em9kSmpOTkR0TklZL2xqMXpnUjdwYmQyOWQwbVhT
+    T0pzVGtrYkoySWp3d0k1T2srNGlTZHp1bAoxY1lRYlZkeFNqZGxYMFYrWUh5Q2g3dG1CYk1DZ1lF
+    QXlrS2orVmlkY1FWNEFDWWtJSitiSlZBR2VGQzlXT0ttCjF4aHc0THl2T0hPa0wxUlZ5dkZkZnNk
+    d0ovWHI2M0RNaWtkMHhHWW1OWStYcnRaUlI1YzlyTXE3WWZEd3BBa0IKOHdEelJkUmRXbExIMm9V
+    WFVBaGl5ZFcwOUUyZFR0YUwwNG50eEtaZThvajlMSU9BQjFpQ0VocjJQTXZEeGlVWQpCY0EvdG1l
+    SnNoOENnWUFpSXIrMlhyWTRxQkV5bnZYZWJ0KzJQdndxc1h6NU9jVUN5ZDJyZVFmUElIZ0xWaS95
+    CjRIZ0JWMWxWUGdEcEgxODBpRVJubjRwTXlveUt3cE9PVVIxa21zU3JibmdaaHAyYnp5bHY4T0RD
+    eERrL1FZUGwKenRkek9rbEw1MUhPMEhQeFRnVE9lQm51LzhYMVlrUFNxcFlJUEJHU01Xdzd6NFhz
+    cmxneE1WNUtuUUtCZ0EvZwo1WENZMVZ0Zkc0bWZkT3lldXhaVnp2dzVFblJjN3M0cUhBcDRwYVRm
+    NXo3VDl4eEVrSnQ0V3NTNFdMb1dFK2l6CkxXYVJ3bVFvRHJkcUdkMXQ4U2lVamR0bGgrN0l5ajlp
+    anJhbnNtQjU2VGl0aENRRFZJWVY0ZXZmLy82RmQxcTMKRkZTQTN5bFpPYzc1ejk1RHc0cGFWWVIy
+    VnJ0Q2hEMUhWM2toYmJ6dkFvR0FGNnpaOXNydzBLajIvYXR3cFVNWQpLcHNjZ2NUYm42RGovL1dm
+    WFcvbWlkdmI1NHdPZkdpZjdYTVF1aGtaSG55YUNnK1hnUVFaV3VMdXR4RWdNT1h6CnNURVdMcW5K
+    K3VVdytHb3drbzZPdi9pRlNEdmRpT2g4RTEvYVRyd09xOU9ITC9DbkJYN0d4b0swZHZIMEd0Rm4K
+    TEJlTlBpZ2tEVlY1ckxnblh4QzRQZ2M9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K
+type: kubernetes.io/tls
