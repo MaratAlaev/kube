@@ -47,6 +47,9 @@
 
 ------
 
+![image](https://github.com/MaratAlaev/kube/assets/46092593/bdca628c-0776-4c96-a631-896fe8d87a01)
+
+
 
 
 ### Правила приёма работы
