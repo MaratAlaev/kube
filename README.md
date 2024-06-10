@@ -31,7 +31,7 @@
 5. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
 
 ------
-
+[манифест 1](https://github.com/MaratAlaev/kube/blob/kube8/01_configMap.yaml)
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/b61006f7-83d0-4d99-84aa-011f7271f7af)
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/07b483c1-27f4-4bf7-90fe-321b93a44212)
 
@@ -46,7 +46,7 @@
 4. Предоставить манифесты, а также скриншоты или вывод необходимых команд.
 
 ------
-
+[манифест 2](https://github.com/MaratAlaev/kube/blob/kube8/02_configMap_SSL.yaml)
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/bdca628c-0776-4c96-a631-896fe8d87a01)
 
 
