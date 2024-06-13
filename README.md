@@ -44,13 +44,14 @@
        kubectl config  use-context marat_context
 ```
 
+Без доступа к CA
+
 ```bash
        openssl genrsa -out marat2.key 2048
        openssl req -new -key marat2.key -out marat.csr -subj "/CN=marat2/O=ops"
        cat marat2.csr  | base64
 ```
 
-Без доступа к CA
 
 ```yaml
 
