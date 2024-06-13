@@ -95,6 +95,8 @@ kubectl config set-context marat_context2 --cluster=microk8s-cluster --user=mara
 kubectl config  use-context marat_context2
 ```
 
+Роли
+
 ![image](https://github.com/MaratAlaev/kube/assets/46092593/1fbf72fa-71b9-4d25-b2f6-09f57639e062)
 
 ```yaml
